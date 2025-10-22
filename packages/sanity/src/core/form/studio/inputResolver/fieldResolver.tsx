@@ -9,7 +9,7 @@ import {type ComponentType, useMemo, useState} from 'react'
 
 import {ChangeIndicator} from '../../../changeIndicators'
 import {type DocumentFieldActionNode} from '../../../config'
-import {FormField, FormFieldSet} from '../../components'
+import {FormCell, FormField, FormFieldSet, FormRow} from '../../components'
 import {usePublishedId} from '../../contexts/DocumentIdProvider'
 import {FieldActionsProvider, FieldActionsResolver} from '../../field'
 import {ReferenceField} from '../../inputs/ReferenceInput/ReferenceField'
@@ -25,33 +25,35 @@ function BooleanField(field: FieldProps) {
   const focused = Boolean(field.inputProps.focused)
 
   return (
-    <>
-      {documentId && field.actions && field.actions.length > 0 && (
-        <FieldActionsResolver
-          actions={field.actions}
-          documentId={documentId}
-          documentType={field.schemaType.name}
-          onActions={setFieldActionNodes}
-          path={field.path}
-          schemaType={field.schemaType}
-        />
-      )}
-      <ChangeIndicator
-        hasFocus={Boolean(field.inputProps.focused)}
-        isChanged={field.inputProps.changed}
-        path={field.path}
-      >
-        <FieldActionsProvider
-          __internal_slot={field.__internal_slot}
-          __internal_comments={field.__internal_comments}
-          actions={fieldActionsNodes}
-          focused={focused}
+    <FormRow>
+      <FormCell $area="body">
+        {documentId && field.actions && field.actions.length > 0 && (
+          <FieldActionsResolver
+            actions={field.actions}
+            documentId={documentId}
+            documentType={field.schemaType.name}
+            onActions={setFieldActionNodes}
+            path={field.path}
+            schemaType={field.schemaType}
+          />
+        )}
+        <ChangeIndicator
+          hasFocus={Boolean(field.inputProps.focused)}
+          isChanged={field.inputProps.changed}
           path={field.path}
         >
-          {field.children}
-        </FieldActionsProvider>
-      </ChangeIndicator>
-    </>
+          <FieldActionsProvider
+            __internal_slot={field.__internal_slot}
+            __internal_comments={field.__internal_comments}
+            actions={fieldActionsNodes}
+            focused={focused}
+            path={field.path}
+          >
+            {field.children}
+          </FieldActionsProvider>
+        </ChangeIndicator>
+      </FormCell>
+    </FormRow>
   )
 }
 
@@ -64,27 +66,29 @@ function DateTimeField(field: FieldProps) {
   const focused = Boolean(field.inputProps.focused)
 
   return (
-    <>
-      {documentId && field.actions && field.actions.length > 0 && (
-        <FieldActionsResolver
-          actions={field.actions}
-          documentId={documentId}
-          documentType={field.schemaType.name}
-          onActions={setFieldActionNodes}
+    <FormRow>
+      <FormCell $area="body">
+        {documentId && field.actions && field.actions.length > 0 && (
+          <FieldActionsResolver
+            actions={field.actions}
+            documentId={documentId}
+            documentType={field.schemaType.name}
+            onActions={setFieldActionNodes}
+            path={field.path}
+            schemaType={field.schemaType}
+          />
+        )}
+        <FieldActionsProvider
+          __internal_slot={field.__internal_slot}
+          __internal_comments={field.__internal_comments}
+          actions={fieldActionsNodes}
+          focused={focused}
           path={field.path}
-          schemaType={field.schemaType}
-        />
-      )}
-      <FieldActionsProvider
-        __internal_slot={field.__internal_slot}
-        __internal_comments={field.__internal_comments}
-        actions={fieldActionsNodes}
-        focused={focused}
-        path={field.path}
-      >
-        {field.children}
-      </FieldActionsProvider>
-    </>
+        >
+          {field.children}
+        </FieldActionsProvider>
+      </FormCell>
+    </FormRow>
   )
 }
 

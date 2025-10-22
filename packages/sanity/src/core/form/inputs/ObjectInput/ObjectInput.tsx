@@ -5,6 +5,7 @@ import {type FocusEvent, Fragment, memo, useCallback, useMemo, useRef} from 'rea
 import {styled} from 'styled-components'
 
 import {EMPTY_ARRAY} from '../../../util/empty'
+import {FormCell, FormRow} from '../../components'
 import {ObjectInputMembers} from '../../members'
 import {useRenderMembers} from '../../members/object/useRenderMembers'
 import {type ObjectInputProps} from '../../types'
@@ -70,12 +71,16 @@ export const ObjectInput = memo(function ObjectInput(props: ObjectInputProps) {
     }
 
     return (
-      <UnknownFields
-        fieldNames={unknownFields}
-        value={value}
-        onChange={onChange}
-        renderPreview={renderPreview}
-      />
+      <FormRow>
+        <FormCell $area="body">
+          <UnknownFields
+            fieldNames={unknownFields}
+            value={value}
+            onChange={onChange}
+            renderPreview={renderPreview}
+          />
+        </FormCell>
+      </FormRow>
     )
   }, [onChange, renderPreview, schemaType.fields, value])
 
@@ -157,7 +162,6 @@ export const ObjectInput = memo(function ObjectInput(props: ObjectInputProps) {
           renderObjectMembers()
         )}
       </Fragment>
-
       {renderedUnknownFields}
     </RootStack>
   )

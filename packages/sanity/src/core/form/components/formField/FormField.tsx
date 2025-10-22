@@ -6,6 +6,8 @@ import {type DocumentFieldActionNode} from '../../../config'
 import {type FormNodePresence} from '../../../presence'
 import {useFieldActions} from '../../field'
 import {type FieldCommentsProps} from '../../types'
+import {FormCell} from '../layout/FormCell'
+import {FormRow} from '../layout/FormRow'
 import {FormFieldBaseHeader} from './FormFieldBaseHeader'
 import {FormFieldHeaderText} from './FormFieldHeaderText'
 
@@ -66,38 +68,42 @@ export const FormField = memo(function FormField(
   const {focused, hovered, onMouseEnter, onMouseLeave} = useFieldActions()
 
   return (
-    <Stack
-      {...restProps}
-      data-level={level}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      space={2}
-    >
-      {/*
+    <FormRow>
+      <FormCell $area="body">
+        <Stack
+          {...restProps}
+          data-level={level}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          space={2}
+        >
+          {/*
         NOTE: It’s not ideal to hide validation, presence and description when there's no `title`.
         So we might want to separate the concerns of input vs formfield components later on.
       */}
-      {title && (
-        <FormFieldBaseHeader
-          __internal_comments={comments}
-          __internal_slot={slot}
-          actions={actions}
-          fieldFocused={Boolean(focused)}
-          fieldHovered={hovered}
-          presence={presence}
-          inputId={inputId}
-          content={
-            <FormFieldHeaderText
-              description={description}
+          {title && (
+            <FormFieldBaseHeader
+              __internal_comments={comments}
+              __internal_slot={slot}
+              actions={actions}
+              fieldFocused={Boolean(focused)}
+              fieldHovered={hovered}
+              presence={presence}
               inputId={inputId}
-              title={title}
-              validation={validation}
-              deprecated={deprecated}
+              content={
+                <FormFieldHeaderText
+                  description={description}
+                  inputId={inputId}
+                  title={title}
+                  validation={validation}
+                  deprecated={deprecated}
+                />
+              }
             />
-          }
-        />
-      )}
-      <div>{children}</div>
-    </Stack>
+          )}
+          <div>{children}</div>
+        </Stack>
+      </FormCell>
+    </FormRow>
   )
 })

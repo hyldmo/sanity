@@ -1,5 +1,6 @@
 import {memo} from 'react'
 
+import {FormCell, FormRow} from '../../components'
 import {type ObjectMember} from '../../store'
 import {
   type RenderAnnotationCallback,
@@ -40,7 +41,13 @@ export const ObjectInputMember = memo(function ObjectInputMember(props: ObjectIn
   } = props
 
   if (member.kind === 'decoration') {
-    return <MemberDecoration key={member.key} member={member} />
+    return (
+      <FormRow>
+        <FormCell $area="body">
+          <MemberDecoration key={member.key} member={member} />
+        </FormCell>
+      </FormRow>
+    )
   }
 
   if (member.kind === 'field') {
