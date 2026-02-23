@@ -1844,9 +1844,6 @@ importers:
       '@repo/tsconfig':
         specifier: workspace:*
         version: link:../@repo/tsconfig
-      '@sanity/descriptors':
-        specifier: ^1.3.0
-        version: 1.3.0
       '@sanity/eslint-config-i18n':
         specifier: 'catalog:'
         version: 2.0.0(eslint@9.39.2(jiti@2.6.1))
